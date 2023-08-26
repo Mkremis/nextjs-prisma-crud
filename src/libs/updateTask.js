@@ -1,5 +1,5 @@
 const updateTask = async (id, title, description) => {
-  const res = await fetch(`/api/tasks/$${id}`, {
+  const res = await fetch(`/api/tasks/${id}`, {
     method: "PUT",
     body: JSON.stringify({
       title,

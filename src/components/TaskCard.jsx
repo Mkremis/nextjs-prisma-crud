@@ -11,8 +11,8 @@ const TaskCard = ({ task }) => {
     >
       <h3 className="font-bold text-2xl mb-2">{task.title.toUpperCase()}</h3>
       <p>{task.description}</p>
-      <small>
-        <time>{new Date(task.createdAt).toLocaleDateString()}</time>
+      <small suppressHydrationWarning>
+        {new Date(task.createdAt).toLocaleDateString()}
       </small>
     </div>
   );

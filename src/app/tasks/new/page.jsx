@@ -4,8 +4,11 @@ import createTask from "@/libs/createTask";
 import loadTask from "@/libs/loadTask";
 import updateTask from "@/libs/updateTask";
 import { useEffect, useState } from "react";
-
+import { useRouter } from "next/navigation";
+import deleteTask from "@/libs/deleteTask";
 const NewPage = ({ params }) => {
+  const router = useRouter();
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [buttonText, setButtonText] = useState("Create Task");
@@ -29,6 +32,7 @@ const NewPage = ({ params }) => {
       } else {
         createTask(title, description);
       }
+      router.refresh();
       router.push("/");
     } catch (error) {
       console.log(error);
@@ -64,9 +68,28 @@ const NewPage = ({ params }) => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         ></textarea>
-        <button className="bg-blue-500 p-2 text-white rounded-md w-full mb-4 hover:bg-blue-600 transition-colors duration-300 ease-in-out">
-          {buttonText}
-        </button>
+        <div className="flex justify-between items-center">
+          <button
+            type="submit"
+            className="bg-blue-500 p-2 text-white rounded-md  mb-4 hover:bg-blue-600 transition-colors duration-300 ease-in-out"
+          >
+            {buttonText}
+          </button>
+          {params.id && (
+            <button
+              type="button"
+              className="bg-red-500 p-2 text-white rounded-md  mb-4 hover:bg-blue-600 transition-colors duration-300 ease-in-out"
+              onClick={() => {
+                confirm("Are you sure you want to delete this task?");
+                deleteTask(params.id);
+                router.refresh();
+                router.push("/");
+              }}
+            >
+              Delete Task
+            </button>
+          )}
+        </div>
       </form>
     </div>
   );

@@ -1,7 +1,11 @@
+import { prisma } from "./prisma";
+
 const loadTasks = async () => {
-  const response = await fetch("http://localhost:3000/api/tasks");
-  const data = await response.json();
-  console.log(data);
-  return data;
+  try {
+    const tasks = await prisma.task.findMany();
+    return tasks;
+  } catch (error) {
+    console.log(error);
+  }
 };
 export default loadTasks;
