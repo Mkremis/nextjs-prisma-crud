@@ -18,15 +18,12 @@ export async function GET(request, { params }) {
 
 export async function PUT(request, { params }) {
   try {
-    const { title, description } = await request.json();
+    const updatedData = await request.json();
     const updatedTask = await prisma.task.update({
       where: {
         id: Number(params.id),
       },
-      data: {
-        title,
-        description,
-      },
+      data: updatedData,
     });
     return NextResponse.json({
       message: `Se ha actualizado la tarea: ${updatedTask.title}`,
