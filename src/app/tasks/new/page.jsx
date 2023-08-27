@@ -80,7 +80,12 @@ const NewPage = ({ params }) => {
               type="button"
               className="bg-red-500 p-2 text-white rounded-md  mb-4 hover:bg-blue-600 transition-colors duration-300 ease-in-out"
               onClick={() => {
-                confirm("Are you sure you want to delete this task?");
+                const confirmation = confirm(
+                  "Are you sure you want to delete this task?"
+                );
+                if (!confirmation) {
+                  return;
+                }
                 deleteTask(params.id);
                 router.refresh();
                 router.push("/");
